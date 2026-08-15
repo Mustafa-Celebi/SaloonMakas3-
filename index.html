@@ -2,17 +2,9 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>USTA Berber Salonu — Kavaklıdere, Ankara</title>
 <meta name="description" content="USTA Berber Salonu — sessiz zarafet, keskin çizgi. WhatsApp'tan randevu al.">
-<!--
-  İŞLETME BİLGİLERİNİ GÜNCELLEMEK İÇİN aşağıdaki yer tutucuları bulup değiştirin:
-  Telefon:    0312 555 01 24   (tel:+903125550124)
-  WhatsApp:   0532 555 01 24   (wa.me/905325550124)
-  Adres:      Tunalı Hilmi Cd. No:24, Kavaklıdere, Çankaya/Ankara
-  Instagram:  @ustaberber
-  Bu metinlerin hepsi placeholder'dır, gerçek verilerinizle değiştirin.
--->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,15 +30,15 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;touch-action:pan-y;}
   img{max-width:100%;display:block;}
-  a{color:inherit;text-decoration:none;}
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;}
   ul{list-style:none;margin:0;padding:0;}
   h1,h2,h3{margin:0;font-family:var(--font-display);font-weight:500;}
   p{margin:0;}
   section{scroll-margin-top:84px;}
-  button{font-family:inherit;cursor:pointer;}
+  button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 
   .container{max-width:var(--container);margin:0 auto;padding:0 28px;}
   .bg-alt{background:var(--bg-alt);}
@@ -85,14 +77,14 @@
     padding:16px 30px;border-radius:var(--radius-md);
     font-weight:600;font-size:14.5px;letter-spacing:0.02em;
     border:1px solid transparent;transition:transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
-    white-space:nowrap;
+    white-space:nowrap;min-height:48px;
   }
   .btn svg{width:18px;height:18px;flex-shrink:0;}
   .btn--primary{background:var(--brass);color:#141414;box-shadow:0 14px 34px -14px rgba(198,161,91,0.55);}
   .btn--primary:hover{transform:translateY(-3px);box-shadow:0 20px 40px -14px rgba(198,161,91,0.6);}
   .btn--outline{border-color:var(--brass-soft);color:var(--ink);background:transparent;}
   .btn--outline:hover{border-color:var(--brass);background:var(--brass-glow);transform:translateY(-3px);}
-  .btn--sm{padding:11px 20px;font-size:13px;}
+  .btn--sm{padding:11px 20px;font-size:13px;min-height:44px;}
   .btn:focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
 
   /* ---------- Header ---------- */
@@ -102,7 +94,7 @@
     border-bottom:1px solid transparent;
   }
   header .container{display:flex;align-items:center;justify-content:space-between;}
-  header.scrolled{padding:16px 0;background:rgba(14,14,16,0.86);backdrop-filter:blur(12px);border-bottom-color:var(--line);}
+  header.scrolled{padding:16px 0;background:rgba(14,14,16,0.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--line);}
 
   .logo{display:flex;align-items:baseline;gap:9px;}
   .logo .mark{font-family:var(--font-display);font-size:24px;letter-spacing:0.08em;line-height:1;font-weight:500;}
@@ -116,20 +108,29 @@
   nav.primary-nav a:hover::after{width:100%;}
 
   .header-cta{display:flex;align-items:center;gap:14px;}
-  .hamburger{display:none;width:42px;height:42px;border-radius:var(--radius-md);border:1px solid var(--line);background:none;align-items:center;justify-content:center;}
+  .hamburger{display:none;width:46px;height:46px;border-radius:var(--radius-md);border:1px solid var(--line);background:none;align-items:center;justify-content:center;position:relative;z-index:101;}
   .hamburger span,.hamburger span::before,.hamburger span::after{content:"";display:block;width:16px;height:1px;background:var(--ink);position:relative;transition:.25s ease;}
   .hamburger span::before{position:absolute;top:-5px;}
   .hamburger span::after{position:absolute;top:5px;}
+  .hamburger.active span{background:transparent;}
+  .hamburger.active span::before{top:0;transform:rotate(45deg);}
+  .hamburger.active span::after{top:0;transform:rotate(-45deg);}
+
+  .mobile-menu-overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:98;
+    opacity:0;pointer-events:none;transition:opacity .3s ease;
+  }
+  .mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
 
   .mobile-menu{
-    position:fixed;inset:0;background:var(--bg);z-index:99;
+    position:fixed;inset:0;left:auto;width:min(85%,340px);background:var(--bg);z-index:99;
     display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:24px;padding:28px 40px;
     transform:translateX(100%);transition:transform .4s cubic-bezier(.65,0,.35,1);
     border-left:1px solid var(--line);
   }
   .mobile-menu.open{transform:translateX(0);}
-  .mobile-menu a{font-family:var(--font-display);font-size:32px;font-weight:400;color:var(--ink);}
-  .mobile-menu .btn{margin-top:14px;}
+  .mobile-menu a{font-family:var(--font-display);font-size:clamp(28px,8vw,34px);font-weight:400;color:var(--ink);padding:6px 0;}
+  .mobile-menu .btn{margin-top:14px;width:100%;}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -145,7 +146,7 @@
   .hero .cta-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:38px;}
   .hero .trust{margin-top:26px;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);letter-spacing:0.02em;}
 
-  .hero-visual{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;background:linear-gradient(165deg,#1c1a16,#0b0b0c 75%);box-shadow:var(--shadow);border:1px solid var(--line);}
+  .hero-visual{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;background:linear-gradient(165deg,#1c1a16,#0b0b0c 75%);box-shadow:var(--shadow);border:1px solid var(--line);max-width:100%;}
   .hero-visual .grain{position:absolute;inset:0;background:radial-gradient(circle at 70% 25%, rgba(198,161,91,0.22), transparent 50%);}
   .hero-visual .tool{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
   .hero-visual .tool svg{width:52%;height:52%;stroke:var(--brass);opacity:0.9;}
@@ -230,7 +231,7 @@
   .footer-social svg{width:16px;height:16px;}
   .footer-col h4{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;}
   .footer-col ul{display:flex;flex-direction:column;gap:13px;}
-  .footer-col a{font-size:14px;font-weight:500;color:var(--ink-soft);}
+  .footer-col a{font-size:14px;font-weight:500;color:var(--ink-soft);display:inline-block;padding:2px 0;}
   .footer-col a:hover{color:var(--brass);}
   .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;}
 
@@ -239,7 +240,9 @@
     position:fixed;right:26px;bottom:26px;z-index:90;
     width:58px;height:58px;border-radius:var(--radius-full);background:var(--brass);color:#141414;
     display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px -14px rgba(198,161,91,0.6);
+    transition:transform .2s ease;
   }
+  .float-wa:hover{transform:scale(1.08);}
   .float-wa svg{width:26px;height:26px;}
   .float-wa .ring{position:absolute;inset:0;border-radius:var(--radius-full);border:1px solid var(--brass);animation:pulse-ring 2.4s ease-out infinite;}
   @keyframes pulse-ring{0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.8);opacity:0;}}
@@ -263,28 +266,116 @@
     .reveal,.reveal-stagger > *{opacity:1;transform:none;transition:none;}
   }
 
-  /* ---------- Responsive ---------- */
+  /* ============================================
+     TABLET (max-width: 960px)
+     ============================================ */
   @media (max-width:960px){
+    .container{padding:0 22px;}
     nav.primary-nav{display:none;}
     .header-cta .btn--outline{display:none;}
     .hamburger{display:flex;}
-    .hero .container{grid-template-columns:1fr;}
+    
+    .hero .container{grid-template-columns:1fr;gap:40px;}
     .hero{padding:160px 0 90px;}
-    .hero-visual{max-width:380px;}
+    .hero-visual{max-width:400px;margin:0 auto;width:100%;}
+    .hero h1{text-align:center;}
+    .hero .lede{text-align:center;margin-left:auto;margin-right:auto;}
+    .hero .cta-row{justify-content:center;}
+    .hero .trust{text-align:center;}
+    
     .about-grid{grid-template-columns:1fr;gap:36px;}
     .stats{grid-template-columns:repeat(2,1fr);}
     .stats .stat:nth-child(3){border-left:none;}
+    .stats .stat:nth-child(odd){border-left:none;}
+    .stats .stat{border-left:1px solid var(--line);}
+    
     .styles-grid{grid-template-columns:repeat(2,1fr);}
     .testi-grid{grid-template-columns:1fr;}
-    .cta-section{grid-template-columns:1fr;padding:44px 30px;}
+    .cta-section{grid-template-columns:1fr;padding:48px 32px;gap:40px;}
     .footer-top{grid-template-columns:1fr;gap:34px;}
   }
-  @media (max-width:600px){
-    .section{padding:76px 0;}
+
+  /* ============================================
+     MOBİL (max-width: 640px)
+     ============================================ */
+  @media (max-width:640px){
+    .container{padding:0 18px;}
+    .section{padding:72px 0;}
+    .section-head{margin-bottom:40px;}
+    
+    .btn{padding:14px 24px;font-size:14px;min-height:48px;}
+    .btn--sm{padding:11px 18px;font-size:12.5px;}
+    
+    .hero{padding:130px 0 60px;}
+    .hero h1{font-size:clamp(38px,11vw,52px);}
+    .hero .lede{font-size:15.5px;margin-top:18px;}
+    .hero .cta-row{margin-top:28px;flex-direction:column;align-items:stretch;}
+    .hero .cta-row .btn{width:100%;justify-content:center;}
+    .hero .trust{font-size:11px;margin-top:18px;}
+    
+    .hero-visual{aspect-ratio:1/1;max-width:300px;}
+    .hero-visual .badge{padding:12px 14px;left:14px;bottom:14px;}
+    .hero-visual .badge .num{font-size:20px;}
+    .hero-visual .badge .lbl{font-size:10px;}
+    
+    .stats .num{font-size:32px;}
+    .stats .stat{padding:26px 12px;}
+    
+    .about-grid{margin-top:40px;}
+    .about-grid .about-text p{font-size:15px;}
+    
+    .menu-item{padding:20px 0;flex-wrap:wrap;gap:8px 12px;}
+    .menu-item .icon{width:24px;height:24px;}
+    .menu-item .name{font-size:17px;flex:1;}
+    .menu-item .dur{font-size:11px;}
+    .menu-item .leader{order:3;width:100%;flex-basis:100%;margin:4px 0 0;display:none;}
+    .menu-item .price{font-size:16px;}
+    
     .styles-grid{grid-template-columns:1fr;}
-    .stats{grid-template-columns:repeat(2,1fr);}
-    .menu-item{flex-wrap:wrap;}
-    .menu-item .leader{order:3;width:100%;flex-basis:100%;margin:6px 0 0;}
+    .style-card{padding:28px 22px;}
+    
+    .testi-card{padding:26px 22px;}
+    .testi-card p.quote{font-size:16px;}
+    
+    .cta-section{padding:32px 22px;border-radius:var(--radius-md);}
+    .cta-section .cta-row{flex-direction:column;align-items:stretch;}
+    .cta-section .cta-row .btn{width:100%;justify-content:center;}
+    .cta-section h2{font-size:clamp(26px,7vw,32px);}
+    
+    .info-row .val{font-size:14px;}
+    
+    .footer-social a{width:44px;height:44px;}
+    .footer-bottom{flex-direction:column;text-align:center;gap:6px;padding-top:22px;}
+    
+    .float-wa{width:54px;height:54px;right:18px;bottom:18px;}
+    .float-wa svg{width:24px;height:24px;}
+  }
+
+  /* ============================================
+     KÜÇÜK TELEFON (max-width: 380px)
+     ============================================ */
+  @media (max-width:380px){
+    .hero h1{font-size:34px;}
+    .section-head h2{font-size:28px;}
+    .stats .num{font-size:28px;}
+    .stats .lbl{font-size:10px;}
+    .menu-item .name{font-size:16px;}
+    .menu-item .price{font-size:15px;}
+    .style-card h3{font-size:17px;}
+    .cta-section{padding:26px 18px;}
+    .mobile-menu{padding:24px 28px;}
+    .mobile-menu a{font-size:28px;}
+  }
+
+  /* ============================================
+     YATAY MOD / KISA EKRAN (max-height: 500px)
+     ============================================ */
+  @media (max-height:500px) and (orientation:landscape){
+    .hero{padding:100px 0 40px;}
+    .hero .container{grid-template-columns:1fr 1fr;gap:30px;}
+    .hero h1{font-size:clamp(28px,5vw,44px);}
+    .hero-visual{max-width:240px;}
+    .section{padding:48px 0;}
   }
 </style>
 </head>
@@ -318,6 +409,8 @@
   </div>
 </header>
 
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
 <div class="mobile-menu" id="mobileMenu">
   <a href="#home" class="m-link">Ana Sayfa</a>
   <a href="#about" class="m-link">Hakkımızda</a>
@@ -325,7 +418,7 @@
   <a href="#styles" class="m-link">Saç Stilleri</a>
   <a href="#testimonials" class="m-link">Yorumlar</a>
   <a href="#contact" class="m-link">İletişim</a>
-  <a href="https://wa.me/905325550124" target="_blank" rel="noopener" class="btn btn--primary">WhatsApp'tan Randevu Al</a>
+  
 </div>
 
 <main>
@@ -604,7 +697,10 @@
 
 <a href="https://wa.me/905325550124" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp'tan yaz">
   <span class="ring" aria-hidden="true"></span>
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C4.2 15 3.7 13.5 3.7 12c0-4.6 3.7-8.3 8.3-8.3s8.3 3.7 8.3 8.3-3.7 8.2-8.3 8.2z"/></svg>
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:26px;height:26px;display:block;">
+    <path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C4.2 15 3.7 13.5 3.7 12c0-4.6 3.7-8.3 8.3-8.3s8.3 3.7 8.3 8.3-3.7 8.2-8.3 8.2z"/>
+  </svg>
 </a>
 
 <script>
@@ -617,14 +713,33 @@
 
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', open);
-  });
-  document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
+  const mobileOverlay = document.getElementById('mobileOverlay');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileOverlay.classList.add('open');
+    menuBtn.classList.add('active');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
     mobileMenu.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded', false);
-  }));
+    mobileOverlay.classList.remove('open');
+    menuBtn.classList.remove('active');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  mobileOverlay.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
 
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   const io = new IntersectionObserver((entries) => {
@@ -648,7 +763,7 @@
       const duration = 1400;
       const start = performance.now();
       function tick(now){
-        const p = Math.min((now - start) / duration, 1);
+                const p = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
         const val = target * eased;
         el.textContent = isDecimal ? val.toFixed(1) : Math.round(val).toLocaleString('tr-TR');
